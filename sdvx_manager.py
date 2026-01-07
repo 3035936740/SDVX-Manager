@@ -345,7 +345,8 @@ class SDVX_INDEX():
         'hvn': '4h',
         'vvd': '4v',
         'xcd': '4x',
-        'mxm': '5'
+        'mxm': '5',
+        'ult': '6'
     }
         # 获取铺面
     async def chart(self, id : int | str, level : str, ascii: str):
@@ -363,7 +364,7 @@ class SDVX_INDEX():
         chart_level = level[0]
         
         urls = []  
-        for i in range(1, 5 + 1):
+        for i in range(1, 6 + 1):
             jacket_url = f"{self.url}/{img_prefix}/{resname}/jk_{id}_{i}_b.webp"
             urls.append(jacket_url)
     
@@ -385,6 +386,8 @@ class SDVX_INDEX():
             chart_level += 'i'
         elif chart_level == '5':
             chart_level += 'm'
+        elif chart_level == '6':
+            chart_level += 'u'
         
         chart_url_base = f"{self.url}/{img_prefix}/{resname}/{resname}_{chart_level}"
         
@@ -408,11 +411,8 @@ SDVXManager = SDVX_MANAGER(SDVX_XML_PATH)
 SDVXIndex = SDVX_INDEX(SDVX_INDEX_URL)
 
 async def main():
-    print(SDVXManager.match("晕"))
-    for id, alias in SDVXManager.matchali("晕船"):
-        print(id, alias)
-    v = SDVXManager.get(1970)
-    print(await SDVXIndex.chart(v.id, 'mxm', v.ascii))
+    v = SDVXManager.get(636)
+    print(await SDVXIndex.chart(v.id, 'ult', v.ascii))
     # print(SDVXManager.addali(1495, "土蜘蛛"))
     # print(SDVXManager.delali("土蜘蛛"))
 
